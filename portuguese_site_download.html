@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Língua Portuguesa - História e Curiosidades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #6d6168;
+            background: linear-gradient(135deg, #d0dccb 0%, #d7c7be 50%, #b3c5ba 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .content {
+            display: grid;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            color: #6d6168;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #88c3b5;
+            position: relative;
+        }
+
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #b3c5ba;
+            transition: width 0.3s ease;
+        }
+
+        .card:hover h2::after {
+            width: 100%;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #6d6168;
+        }
+
+        .card ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+            color: #6d6168;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .country-item {
+            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            transform: scale(0.95);
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .country-item:hover {
+            transform: scale(1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .examples-container {
+            background: linear-gradient(45deg, #d0dccb 0%, #d7c7be 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .example-item {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #88c3b5;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .curiosities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .curiosity-item {
+            background: linear-gradient(135deg, #d7c7be 0%, #b3c5ba 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transform: rotateY(0deg);
+            transition: all 0.3s ease;
+            color: #6d6168;
+        }
+
+        .curiosity-item:hover {
+            transform: rotateY(5deg) scale(1.05);
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: white;
+            transform: scale(1.3);
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(136, 195, 181, 0.4);
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-question h3 {
+            color: #88c3b5;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-option {
+            background: linear-gradient(45deg, #d0dccb 0%, #d7c7be 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6d6168;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .quiz-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(45deg, #88c3b5 0%, #b3c5ba 100%);
+            color: white;
+            animation: correctAnswer 0.6s ease-in-out;
+        }
+
+        .quiz-option.incorrect {
+            background: linear-gradient(45deg, #6d6168 0%, #b3c5ba 100%);
+            color: white;
+            animation: shake 0.6s ease-in-out;
+        }
+
+        .quiz-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .quiz-progress {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
+            width: 20%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+
+        #progress-text {
+            font-weight: bold;
+            color: #88c3b5;
+        }
+
+        #quiz-result {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #d0dccb 0%, #d7c7be 100%);
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        #score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #88c3b5;
+            margin: 20px 0;
+        }
+
+        #result-message {
+            font-size: 1.2rem;
+            color: #6d6168;
+            margin: 15px 0;
+        }
+
+        .quiz-restart-btn {
+            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .quiz-restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(136, 195, 181, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes correctAnswer {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background: #88c3b5; }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .countries-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-dots {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>A Língua Portuguesa</h1>
+            <p class="subtitle">História, Evolução e Curiosidades</p>
+        </header>
+
+        <div class="content">
+            <div class="card" id="origem">
+                <h2>1. Qual a origem da língua portuguesa?</h2>
+                <p>A língua portuguesa é uma <strong>língua neolatina</strong>, originária do latim vulgar, que era a variante popular do latim falado pelas camadas mais populares do Império Romano.</p>
+                <p>Na Península Ibérica, o latim vulgar se misturou com dialetos locais e influências de outros povos como <em>celtas</em>, <em>germânicos</em> e <em>árabes</em>, dando origem ao <strong>galego-português</strong>, do qual o português e o galego se desenvolveram.</p>
+            </div>
+
+            <div class="card" id="brasil">
+                <h2>2. Por que o idioma do Brasil é o português e não o brasileiro?</h2>
+                <p>O idioma do Brasil é o português devido à <strong>colonização portuguesa</strong>. Embora haja diferenças significativas entre o português falado no Brasil e em Portugal, ele é considerado a mesma língua, com variações regionais.</p>
+                
+                <h3>Principais diferenças entre o português do Brasil e o português de Portugal:</h3>
+                <ul>
+                    <li><strong>Pronúncia e entonação:</strong> O português do Brasil é frequentemente descrito como mais "cantado" e com vogais mais abertas, enquanto o português de Portugal tem um ritmo mais marcado e um som de "s" mais sibilante.</li>
+                    <li><strong>Vocabulário:</strong> Existem palavras e expressões diferentes para os mesmos conceitos, e o português brasileiro incorporou influências indígenas e africanas.</li>
+                    <li><strong>Gramática e sintaxe:</strong> Há diferenças no uso de pronomes, gerúndio e na colocação pronominal.</li>
+                </ul>
+            </div>
+
+            <div class="card" id="paises">
+                <h2>3. Quais países do mundo têm o português como idioma oficial?</h2>
+                <p>Além do Brasil, os países que têm o português como idioma oficial são:</p>
+                <div class="countries-grid">
+                    <div class="country-item">🇵🇹 Portugal</div>
+                    <div class="country-item">🇦🇴 Angola</div>
+                    <div class="country-item">🇨🇻 Cabo Verde</div>
+                    <div class="country-item">🇬🇼 Guiné-Bissau</div>
+                    <div class="country-item">🇬🇶 Guiné Equatorial</div>
+                    <div class="country-item">🇲🇿 Moçambique</div>
+                    <div class="country-item">🇸🇹 São Tomé e Príncipe</div>
+                    <div class="country-item">🇹🇱 Timor-Leste</div>
+                </div>
+            </div>
+
+            <div class="card" id="reforma">
+                <h2>4. Por que foi feita uma nova Reforma Ortográfica?</h2>
+                <p>A <strong>Reforma Ortográfica da Língua Portuguesa</strong> foi feita com o objetivo de <em>unificar a ortografia</em> da língua portuguesa nos países da Comunidade dos Países de Língua Portuguesa (CPLP), facilitando a comunicação e o intercâmbio cultural.</p>
+                <p>Esta reforma busca aproximar as diferentes variantes do português, criando uma base ortográfica comum que beneficie todos os falantes da língua.</p>
+            </div>
+
+            <div class="card" id="preconceito">
+                <h2>5. O que é preconceito linguístico?</h2>
+                <p><strong>Preconceito linguístico</strong> é a discriminação ou o julgamento negativo de uma pessoa com base em sua forma de falar, considerando uma variante linguística como superior ou inferior a outra.</p>
+                
+                <div class="examples-container">
+                    <h3>Exemplos de preconceito linguístico:</h3>
+                    <div class="example-item">
+                        <strong>Criticar</strong> alguém por usar gírias ou regionalismos em um contexto informal.
+                    </div>
+                    <div class="example-item">
+                        <strong>Associar</strong> a fala de uma pessoa a falta de inteligência ou educação por ela não seguir a norma culta em todas as situações.
+                    </div>
+                    <div class="example-item">
+                        <strong>Discriminar</strong> pessoas que têm sotaque diferente do seu.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="curiosidades">
+                <h2>6. Curiosidades sobre a Língua Portuguesa no Brasil</h2>
+                <div class="curiosities-grid">
+                    <div class="curiosity-item">
+                        <h4>🌿 Origem de palavras</h4>
+                        <p>Muitas palavras têm origem <strong>indígena</strong> (abacaxi, mandioca) ou <strong>africana</strong> (cafuné, moleque).</p>
+                    </div>
+                    <div class="curiosity-item">
+                        <h4>🌍 Influência de imigrantes</h4>
+                        <p>A língua foi influenciada por idiomas trazidos por <strong>imigrantes</strong> de diversas nacionalidades.</p>
+                    </div>
+                    <div class="curiosity-item">
+                        <h4>📅 Dia Nacional</h4>
+                        <p>O <strong>Dia Nacional da Língua Portuguesa</strong> é comemorado em <em>5 de novembro</em>.</p>
+                    </div>
+                    <div class="curiosity-item">
+                        <h4>🤝 CPLP</h4>
+                        <p>A <strong>Comunidade dos Países de Língua Portuguesa</strong> foi criada em 1996 para promover a cooperação.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section -->
+            <div class="card" id="quiz">
+                <h2>🧠 Quiz sobre a Língua Portuguesa</h2>
+                <p>Teste seus conhecimentos sobre o que você aprendeu!</p>
+                
+                <div id="quiz-container">
+                    <div class="quiz-question" id="question-1">
+                        <h3>Pergunta 1:</h3>
+                        <p>De qual língua a língua portuguesa se originou?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Grego antigo</button>
+                            <button class="quiz-option" data-correct="true">Latim vulgar</button>
+                            <button class="quiz-option" data-correct="false">Árabe clássico</button>
+                            <button class="quiz-option" data-correct="false">Germânico</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" id="question-2" style="display: none;">
+                        <h3>Pergunta 2:</h3>
+                        <p>Quantos países têm o português como idioma oficial?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">6 países</button>
+                            <button class="quiz-option" data-correct="false">7 países</button>
+                            <button class="quiz-option" data-correct="true">9 países</button>
+                            <button class="quiz-option" data-correct="false">10 países</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" id="question-3" style="display: none;">
+                        <h3>Pergunta 3:</h3>
+                        <p>Quando é comemorado o Dia Nacional da Língua Portuguesa?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">22 de abril</button>
+                            <button class="quiz-option" data-correct="true">5 de novembro</button>
+                            <button class="quiz-option" data-correct="false">7 de setembro</button>
+                            <button class="quiz-option" data-correct="false">15 de março</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" id="question-4" style="display: none;">
+                        <h3>Pergunta 4:</h3>
+                        <p>O que é preconceito linguístico?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Estudar diferentes línguas</button>
+                            <button class="quiz-option" data-correct="true">Discriminar alguém pela forma de falar</button>
+                            <button class="quiz-option" data-correct="false">Aprender gramática</button>
+                            <button class="quiz-option" data-correct="false">Falar várias línguas</button>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" id="question-5" style="display: none;">
+                        <h3>Pergunta 5:</h3>
+                        <p>Qual palavra tem origem indígena?</p>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-correct="false">Cafuné</button>
+                            <button class="quiz-option" data-correct="true">Abacaxi</button>
+                            <button class="quiz-option" data-correct="false">Moleque</button>
+                            <button class="quiz-option" data-correct="false">Saudade</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-result" style="display: none;">
+                        <h3>🎉 Parabéns! Você completou o quiz!</h3>
+                        <div id="score-display"></div>
+                        <p id="result-message"></p>
+                        <button id="restart-quiz" class="quiz-restart-btn">🔄 Refazer Quiz</button>
+                    </div>
+                </div>
+
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <span id="progress-text">Pergunta 1 de 5</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-dots">
+        <div class="nav-dot active" data-target="origem"></div>
+        <div class="nav-dot" data-target="brasil"></div>
+        <div class="nav-dot" data-target="paises"></div>
+        <div class="nav-dot" data-target="reforma"></div>
+        <div class="nav-dot" data-target="preconceito"></div>
+        <div class="nav-dot" data-target="curiosidades"></div>
+        <div class="nav-dot" data-target="quiz"></div>
+    </div>
+
+    <button class="scroll-to-top" id="scrollToTop">↑</button>
+
+    <script>
+        // Smooth scrolling for navigation dots
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                const target = document.getElementById(this.dataset.target);
+                target.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Update active dot
+                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+
+            // Update active navigation dot based on scroll position
+            const cards = document.querySelectorAll('.card');
+            const dots = document.querySelectorAll('.nav-dot');
+            
+            let current = '';
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    current = card.id;
+                }
+            });
+
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.target === current) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animation to country items
+        document.querySelectorAll('.country-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = 'pulse 0.6s ease-in-out';
+                }, 10);
+            });
+        });
+
+        // Add typing effect to the main title
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const title = document.querySelector('h1');
+            const originalText = title.textContent;
+            setTimeout(() => {
+                typeWriter(title, originalText, 150);
+            }, 1000);
+        });
+
+        // Add parallax effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            header.style.transform = `translateY(${parallax}px)`;
+        });
+
+        // Quiz functionality
+        let currentQuestion = 1;
+        let score = 0;
+        let quizCompleted = false;
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const percentage = (currentQuestion - 1) / 5 * 100;
+            
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `Pergunta ${currentQuestion} de 5`;
+        }
+
+        function showQuestion(questionNumber) {
+            // Hide all questions
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                q.style.display = 'none';
+            });
+            
+            // Show current question
+            const questionElement = document.getElementById(`question-${questionNumber}`);
+            if (questionElement) {
+                questionElement.style.display = 'block';
+            }
+            
+            updateProgress();
+        }
+
+        function handleAnswer(button, isCorrect) {
+            // Disable all options
+            const options = button.parentElement.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.disabled = true);
+            
+            // Show correct/incorrect feedback
+            if (isCorrect) {
+                button.classList.add('correct');
+                score++;
+            } else {
+                button.classList.add('incorrect');
+                // Show correct answer
+                options.forEach(opt => {
+                    if (opt.dataset.correct === 'true') {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                if (currentQuestion < 5) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                } else {
+                    showResults();
+                }
+            }, 2000);
+        }
+
+        function showResults() {
+            document.querySelectorAll('.quiz-question').forEach(q => {
+                q.style.display = 'none';
+            });
+            
+            const resultDiv = document.getElementById('quiz-result');
+            const scoreDisplay = document.getElementById('score-display');
+            const resultMessage = document.getElementById('result-message');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            
+            resultDiv.style.display = 'block';
+            scoreDisplay.textContent = `${score} / 5`;
+            progressFill.style.width = '100%';
+            progressText.textContent = 'Quiz Completo!';
+            
+            // Set message based on score
+            if (score === 5) {
+                resultMessage.textContent = '🌟 Excelente! Você domina o assunto!';
+            } else if (score >= 3) {
+                resultMessage.textContent = '👏 Muito bom! Você tem um bom conhecimento!';
+            } else {
+                resultMessage.textContent = '📚 Continue estudando! Você pode melhorar!';
+            }
+            
+            quizCompleted = true;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 1;
+            score = 0;
+            quizCompleted = false;
+            
+            // Reset all options
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.disabled = false;
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Hide result and show first question
+            document.getElementById('quiz-result').style.display = 'none';
+            showQuestion(1);
+        }
+
+        // Add event listeners for quiz options
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz option listeners
+            document.querySelectorAll('.quiz-option').forEach(button => {
+                button.addEventListener('click', function() {
+                    const isCorrect = this.dataset.correct === 'true';
+                    handleAnswer(this, isCorrect);
+                });
+            });
+            
+            // Restart quiz listener
+            document.getElementById('restart-quiz').addEventListener('click', restartQuiz);
+            
+            // Initialize quiz
+            showQuestion(1);
+        });
+    </script>
+</body>
+</html>
