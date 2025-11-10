@@ -3,812 +3,723 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Língua Portuguesa - História e Curiosidades</title>
+    <title>MathQuest - Protótipo Jogável</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: #6d6168;
-            background: linear-gradient(135deg, #d0dccb 0%, #d7c7be 50%, #b3c5ba 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
-
+        
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 900px;
+            width: 100%;
         }
-
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-            padding: 40px 0;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-        }
-
+        
         h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .content {
-            display: grid;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            animation: slideInUp 0.6s ease-out forwards;
-        }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
-        .card:nth-child(7) { animation-delay: 0.7s; }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-        }
-
-        .card h2 {
-            color: #6d6168;
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #88c3b5;
-            position: relative;
-        }
-
-        .card h2::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: #b3c5ba;
-            transition: width 0.3s ease;
-        }
-
-        .card:hover h2::after {
-            width: 100%;
-        }
-
-        .card p {
-            margin-bottom: 15px;
-            text-align: justify;
-            color: #6d6168;
-        }
-
-        .card ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .card li {
-            margin-bottom: 8px;
-            color: #6d6168;
-        }
-
-        .countries-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .country-item {
-            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
             color: white;
-            padding: 15px;
-            border-radius: 10px;
             text-align: center;
-            font-weight: bold;
-            transform: scale(0.95);
-            transition: all 0.3s ease;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .country-item:hover {
-            transform: scale(1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .examples-container {
-            background: linear-gradient(45deg, #d0dccb 0%, #d7c7be 100%);
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 15px;
-        }
-
-        .example-item {
-            background: white;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #88c3b5;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .curiosities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .curiosity-item {
-            background: linear-gradient(135deg, #d7c7be 0%, #b3c5ba 100%);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            transform: rotateY(0deg);
-            transition: all 0.3s ease;
-            color: #6d6168;
-        }
-
-        .curiosity-item:hover {
-            transform: rotateY(5deg) scale(1.05);
-        }
-
-        .nav-dots {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-        }
-
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: white;
-            transform: scale(1.3);
-        }
-
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .scroll-to-top.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(136, 195, 181, 0.4);
-        }
-
-        /* Quiz Styles */
-        .quiz-question {
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2em;
         }
-
-        .quiz-question h3 {
-            color: #88c3b5;
+        
+        .game-wrapper {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .hud {
+            display: flex;
+            justify-content: space-between;
             margin-bottom: 15px;
-            font-size: 1.3rem;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-
-        .quiz-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .quiz-option {
-            background: linear-gradient(45deg, #d0dccb 0%, #d7c7be 100%);
-            border: none;
+        
+        .hud-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
             border-radius: 10px;
-            padding: 15px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 500;
-            color: #6d6168;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: bold;
+            font-size: 18px;
         }
-
-        .quiz-option:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .quiz-option.correct {
-            background: linear-gradient(45deg, #88c3b5 0%, #b3c5ba 100%);
-            color: white;
-            animation: correctAnswer 0.6s ease-in-out;
-        }
-
-        .quiz-option.incorrect {
-            background: linear-gradient(45deg, #6d6168 0%, #b3c5ba 100%);
-            color: white;
-            animation: shake 0.6s ease-in-out;
-        }
-
-        .quiz-option:disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .quiz-progress {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #f0f0f0;
-            border-radius: 5px;
+        
+        .game-canvas {
+            background: linear-gradient(180deg, #87CEEB 0%, #90EE90 100%);
+            border: 4px solid #333;
+            border-radius: 10px;
+            position: relative;
+            height: 400px;
             overflow: hidden;
-            margin-bottom: 10px;
         }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
-            width: 20%;
-            transition: width 0.5s ease;
+        
+        .platform {
+            background: #8B4513;
+            border: 3px solid #654321;
+            position: absolute;
             border-radius: 5px;
         }
-
-        #progress-text {
+        
+        .character {
+            width: 40px;
+            height: 60px;
+            background: #2E7DD2;
+            border: 3px solid #1a4d8f;
+            border-radius: 8px;
+            position: absolute;
+            transition: left 0.1s linear, bottom 0.05s linear;
+            z-index: 10;
+        }
+        
+        .character::before {
+            content: '◕◡◕';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+        }
+        
+        .character::after {
+            content: '∞';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #FFD700;
             font-weight: bold;
-            color: #88c3b5;
+            font-size: 16px;
         }
-
-        #quiz-result {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #d0dccb 0%, #d7c7be 100%);
-            border-radius: 15px;
-            margin: 20px 0;
-        }
-
-        #score-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #88c3b5;
-            margin: 20px 0;
-        }
-
-        #result-message {
-            font-size: 1.2rem;
-            color: #6d6168;
-            margin: 15px 0;
-        }
-
-        .quiz-restart-btn {
-            background: linear-gradient(45deg, #88c3b5, #b3c5ba);
-            border: none;
-            border-radius: 25px;
-            padding: 12px 30px;
+        
+        .obstacle {
+            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
+            border: 3px solid #A61E1E;
+            position: absolute;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
             color: white;
-            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
+            transition: transform 0.2s;
+            z-index: 5;
         }
-
-        .quiz-restart-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(136, 195, 181, 0.3);
+        
+        .obstacle:hover {
+            transform: scale(1.1);
         }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        .collectible {
+            position: absolute;
+            font-size: 30px;
+            animation: float 2s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 5;
         }
-
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-
-        @keyframes correctAnswer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); background: #88c3b5; }
-            100% { transform: scale(1); }
+        
+        .challenge-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
         }
-
+        
+        .challenge-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .challenge-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            animation: slideUp 0.3s;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .challenge-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .question {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .option {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .option:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .option.correct {
+            background: linear-gradient(135deg, #51CF66 0%, #2F9E44 100%);
+            animation: pulse 0.5s;
+        }
+        
+        .option.wrong {
+            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
+            animation: shake 0.5s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        
+        .controls {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
         }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            .countries-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .nav-dots {
-                display: none;
-            }
+        
+        .controls p {
+            color: #666;
+            margin: 5px 0;
+        }
+        
+        .message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+            font-size: 20px;
+            font-weight: bold;
+            animation: slideDown 0.3s;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateX(-50%) translateY(-100px); }
+            to { transform: translateX(-50%) translateY(0); }
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .message.success {
+            color: #2F9E44;
+            border: 3px solid #51CF66;
+        }
+        
+        .message.error {
+            color: #C92A2A;
+            border: 3px solid #FF6B6B;
+        }
+        
+        .goal {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border: 4px solid #FF8C00;
+            position: absolute;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: glow 2s ease-in-out infinite;
+            z-index: 5;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px #FFD700; }
+            50% { box-shadow: 0 0 30px #FFD700, 0 0 40px #FFA500; }
+        }
+        
+        .hint-btn {
+            background: #FFA500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        .hint-btn:hover {
+            background: #FF8C00;
+        }
+        
+        .hint-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .hint {
+            background: #FFF9E6;
+            border: 2px solid #FFA500;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .hint.show {
+            display: block;
+            animation: fadeIn 0.3s;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>A Língua Portuguesa</h1>
-            <p class="subtitle">História, Evolução e Curiosidades</p>
-        </header>
-
-        <div class="content">
-            <div class="card" id="origem">
-                <h2> Qual a origem da língua portuguesa?</h2>
-                <p>A língua portuguesa é uma <strong>língua neolatina</strong>, originária do latim vulgar, que era a variante popular do latim falado pelas camadas mais populares do Império Romano.</p>
-                <p>Na Península Ibérica, o latim vulgar se misturou com dialetos locais e influências de outros povos como <em>celtas</em>, <em>germânicos</em> e <em>árabes</em>, dando origem ao <strong>galego-português</strong>, do qual o português e o galego se desenvolveram.</p>
+        <h1>🎮 MathQuest - Protótipo Jogável</h1>
+        
+        <div class="game-wrapper">
+            <div class="hud">
+                <div class="hud-item">Nível: <span id="level">1</span></div>
+                <div class="hud-item">★ <span id="stars">0</span>/3</div>
+                <div class="hud-item">🪙 <span id="coins">0</span></div>
+                <div class="hud-item">💡 Dicas: <span id="hints">3</span></div>
             </div>
-
-            <div class="card" id="brasil">
-                <h2> Por que o idioma do Brasil é o português e não o brasileiro?</h2>
-                <p>O idioma do Brasil é o português devido à <strong>colonização portuguesa</strong>. Embora haja diferenças significativas entre o português falado no Brasil e em Portugal, ele é considerado a mesma língua, com variações regionais.</p>
+            
+            <div class="game-canvas" id="gameCanvas">
+                <!-- Plataformas -->
+                <div class="platform" style="bottom: 0; left: 0; width: 100%; height: 30px;"></div>
+                <div class="platform" style="bottom: 100px; left: 200px; width: 150px; height: 20px;"></div>
+                <div class="platform" style="bottom: 180px; left: 400px; width: 150px; height: 20px;"></div>
+                <div class="platform" style="bottom: 140px; right: 150px; width: 120px; height: 20px;"></div>
                 
-                <h3>Principais diferenças entre o português do Brasil e o português de Portugal:</h3>
-                <ul>
-                    <li><strong>Pronúncia e entonação:</strong> O português do Brasil é frequentemente descrito como mais "cantado" e com vogais mais abertas, enquanto o português de Portugal tem um ritmo mais marcado e um som de "s" mais sibilante.</li>
-                    <li><strong>Vocabulário:</strong> Existem palavras e expressões diferentes para os mesmos conceitos, e o português brasileiro incorporou influências indígenas e africanas.</li>
-                    <li><strong>Gramática e sintaxe:</strong> Há diferenças no uso de pronomes, gerúndio e na colocação pronominal.</li>
-                </ul>
-            </div>
-
-            <div class="card" id="paises">
-                <h2> Quais países do mundo têm o português como idioma oficial?</h2>
-                <p>Além do Brasil, os países que têm o português como idioma oficial são:</p>
-                <div class="countries-grid">
-                    <div class="country-item">🇵🇹 Portugal</div>
-                    <div class="country-item">🇦🇴 Angola</div>
-                    <div class="country-item">🇨🇻 Cabo Verde</div>
-                    <div class="country-item">🇬🇼 Guiné-Bissau</div>
-                    <div class="country-item">🇬🇶 Guiné Equatorial</div>
-                    <div class="country-item">🇲🇿 Moçambique</div>
-                    <div class="country-item">🇸🇹 São Tomé e Príncipe</div>
-                    <div class="country-item">🇹🇱 Timor-Leste</div>
-                </div>
-            </div>
-
-            <div class="card" id="reforma">
-                <h2> Por que foi feita uma nova Reforma Ortográfica?</h2>
-                <p>A <strong>Reforma Ortográfica da Língua Portuguesa</strong> foi feita com o objetivo de <em>unificar a ortografia</em> da língua portuguesa nos países da Comunidade dos Países de Língua Portuguesa (CPLP), facilitando a comunicação e o intercâmbio cultural.</p>
-                <p>Esta reforma busca aproximar as diferentes variantes do português, criando uma base ortográfica comum que beneficie todos os falantes da língua.</p>
-            </div>
-
-            <div class="card" id="preconceito">
-                <h2> O que é preconceito linguístico?</h2>
-                <p><strong>Preconceito linguístico</strong> é a discriminação ou o julgamento negativo de uma pessoa com base em sua forma de falar, considerando uma variante linguística como superior ou inferior a outra.</p>
+                <!-- Personagem -->
+                <div class="character" id="character"></div>
                 
-                <div class="examples-container">
-                    <h3>Exemplos de preconceito linguístico:</h3>
-                    <div class="example-item">
-                        <strong>Criticar</strong> alguém por usar gírias ou regionalismos em um contexto informal.
-                    </div>
-                    <div class="example-item">
-                        <strong>Associar</strong> a fala de uma pessoa a falta de inteligência ou educação por ela não seguir a norma culta em todas as situações.
-                    </div>
-                    <div class="example-item">
-                        <strong>Discriminar</strong> pessoas que têm sotaque diferente do seu.
-                    </div>
+                <!-- Obstáculos (desafios) -->
+                <div class="obstacle" id="obstacle1" style="bottom: 120px; left: 220px; width: 60px; height: 60px;">
+                    ?
                 </div>
-            </div>
-
-            <div class="card" id="curiosidades">
-                <h2> Curiosidades sobre a Língua Portuguesa no Brasil</h2>
-                <div class="curiosities-grid">
-                    <div class="curiosity-item">
-                        <h4>🌿 Origem de palavras</h4>
-                        <p>Muitas palavras têm origem <strong>indígena</strong> (abacaxi, mandioca) ou <strong>africana</strong> (cafuné, moleque).</p>
-                    </div>
-                    <div class="curiosity-item">
-                        <h4>🌍 Influência de imigrantes</h4>
-                        <p>A língua foi influenciada por idiomas trazidos por <strong>imigrantes</strong> de diversas nacionalidades.</p>
-                    </div>
-                    <div class="curiosity-item">
-                        <h4>📅 Dia Nacional</h4>
-                        <p>O <strong>Dia Nacional da Língua Portuguesa</strong> é comemorado em <em>5 de novembro</em>.</p>
-                    </div>
-                    <div class="curiosity-item">
-                        <h4>🤝 CPLP</h4>
-                        <p>A <strong>Comunidade dos Países de Língua Portuguesa</strong> foi criada em 1996 para promover a cooperação.</p>
-                    </div>
+                <div class="obstacle" id="obstacle2" style="bottom: 200px; left: 420px; width: 60px; height: 60px;">
+                    ?
                 </div>
-            </div>
-
-            <!-- Quiz Section -->
-            <div class="card" id="quiz">
-                <h2>🧠 Quiz sobre a Língua Portuguesa</h2>
-                <p>Teste seus conhecimentos sobre o que você aprendeu!</p>
                 
-                <div id="quiz-container">
-                    <div class="quiz-question" id="question-1">
-                        <h3>Pergunta 1:</h3>
-                        <p>De qual língua a língua portuguesa se originou?</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option" data-correct="false">Grego antigo</button>
-                            <button class="quiz-option" data-correct="true">Latim vulgar</button>
-                            <button class="quiz-option" data-correct="false">Árabe clássico</button>
-                            <button class="quiz-option" data-correct="false">Germânico</button>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question" id="question-2" style="display: none;">
-                        <h3>Pergunta 2:</h3>
-                        <p>Quantos países têm o português como idioma oficial?</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option" data-correct="false">6 países</button>
-                            <button class="quiz-option" data-correct="false">7 países</button>
-                            <button class="quiz-option" data-correct="true">9 países</button>
-                            <button class="quiz-option" data-correct="false">10 países</button>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question" id="question-3" style="display: none;">
-                        <h3>Pergunta 3:</h3>
-                        <p>Quando é comemorado o Dia Nacional da Língua Portuguesa?</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option" data-correct="false">22 de abril</button>
-                            <button class="quiz-option" data-correct="true">5 de novembro</button>
-                            <button class="quiz-option" data-correct="false">7 de setembro</button>
-                            <button class="quiz-option" data-correct="false">15 de março</button>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question" id="question-4" style="display: none;">
-                        <h3>Pergunta 4:</h3>
-                        <p>O que é preconceito linguístico?</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option" data-correct="false">Estudar diferentes línguas</button>
-                            <button class="quiz-option" data-correct="true">Discriminar alguém pela forma de falar</button>
-                            <button class="quiz-option" data-correct="false">Aprender gramática</button>
-                            <button class="quiz-option" data-correct="false">Falar várias línguas</button>
-                        </div>
-                    </div>
-
-                    <div class="quiz-question" id="question-5" style="display: none;">
-                        <h3>Pergunta 5:</h3>
-                        <p>Qual palavra tem origem indígena?</p>
-                        <div class="quiz-options">
-                            <button class="quiz-option" data-correct="false">Cafuné</button>
-                            <button class="quiz-option" data-correct="true">Abacaxi</button>
-                            <button class="quiz-option" data-correct="false">Moleque</button>
-                            <button class="quiz-option" data-correct="false">Saudade</button>
-                        </div>
-                    </div>
-
-                    <div id="quiz-result" style="display: none;">
-                        <h3>🎉 Parabéns! Você completou o quiz!</h3>
-                        <div id="score-display"></div>
-                        <p id="result-message"></p>
-                        <button id="restart-quiz" class="quiz-restart-btn">🔄 Refazer Quiz</button>
-                    </div>
+                <!-- Colecionáveis -->
+                <div class="collectible star" style="bottom: 60px; left: 150px;">★</div>
+                <div class="collectible star" style="bottom: 250px; left: 450px;">★</div>
+                <div class="collectible coin" style="bottom: 170px; right: 180px;">🪙</div>
+                <div class="collectible coin" style="bottom: 50px; left: 400px;">🪙</div>
+                
+                <!-- Meta -->
+                <div class="goal" id="goal" style="bottom: 160px; right: 160px; width: 80px; height: 80px;">
+                    🏆
                 </div>
-
-                <div class="quiz-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <span id="progress-text">Pergunta 1 de 5</span>
-                </div>
+            </div>
+            
+            <div class="controls">
+                <p><strong>Controles:</strong> ← → para mover | ESPAÇO ou ↑ para pular | Clique nos ? para desafios</p>
+                <p><strong>Objetivo:</strong> Colete todas as estrelas ★ e chegue ao troféu 🏆</p>
             </div>
         </div>
     </div>
-
-    <div class="nav-dots">
-        <div class="nav-dot active" data-target="origem"></div>
-        <div class="nav-dot" data-target="brasil"></div>
-        <div class="nav-dot" data-target="paises"></div>
-        <div class="nav-dot" data-target="reforma"></div>
-        <div class="nav-dot" data-target="preconceito"></div>
-        <div class="nav-dot" data-target="curiosidades"></div>
-        <div class="nav-dot" data-target="quiz"></div>
+    
+    <!-- Modal de Desafio -->
+    <div class="challenge-modal" id="challengeModal">
+        <div class="challenge-content">
+            <h2>🧮 Desafio Matemático</h2>
+            <div class="question" id="question"></div>
+            <div class="options" id="optionsContainer"></div>
+            <button class="hint-btn" id="hintBtn">💡 Usar Dica</button>
+            <div class="hint" id="hintText"></div>
+        </div>
     </div>
-
-    <button class="scroll-to-top" id="scrollToTop">↑</button>
+    
+    <!-- Mensagem de Feedback -->
+    <div class="message" id="message"></div>
 
     <script>
-        // Smooth scrolling for navigation dots
-        document.querySelectorAll('.nav-dot').forEach(dot => {
-            dot.addEventListener('click', function() {
-                const target = document.getElementById(this.dataset.target);
-                target.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-                
-                // Update active dot
-                document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Scroll to top button
-        const scrollToTopBtn = document.getElementById('scrollToTop');
+        // Banco de questões
+        const questions = [
+            {
+                question: "Quanto é 5 + 8?",
+                options: [12, 13, 14, 11],
+                correct: 1,
+                hint: "Dica: Conte nos dedos ou some 5 + 5 = 10, depois adicione mais 3"
+            },
+            {
+                question: "Se você tem 20 balas e dá 7 para seu amigo, quantas sobram?",
+                options: [13, 14, 12, 15],
+                correct: 0,
+                hint: "Dica: 20 - 7 = ? (Subtração)"
+            },
+            {
+                question: "Quanto é 6 × 4?",
+                options: [24, 20, 28, 22],
+                correct: 0,
+                hint: "Dica: 6 + 6 + 6 + 6 ou pense na tabuada do 6"
+            },
+            {
+                question: "Qual é metade de 16?",
+                options: [6, 7, 8, 9],
+                correct: 2,
+                hint: "Dica: Dividir por 2 é o mesmo que encontrar metade"
+            },
+            {
+                question: "Complete: 2, 4, 6, 8, __",
+                options: [10, 9, 12, 11],
+                correct: 0,
+                hint: "Dica: Estamos somando 2 cada vez (números pares)"
+            },
+            {
+                question: "Se um triângulo tem 3 lados, quantos lados têm 2 triângulos?",
+                options: [5, 6, 7, 8],
+                correct: 1,
+                hint: "Dica: 3 lados × 2 triângulos = ?"
+            }
+        ];
         
-        window.addEventListener('scroll', function() {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-
-            // Update active navigation dot based on scroll position
-            const cards = document.querySelectorAll('.card');
-            const dots = document.querySelectorAll('.nav-dot');
-            
-            let current = '';
-            cards.forEach(card => {
-                const rect = card.getBoundingClientRect();
-                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-                    current = card.id;
-                }
-            });
-
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-                if (dot.dataset.target === current) {
-                    dot.classList.add('active');
-                }
-            });
-        });
-
-        scrollToTopBtn.addEventListener('click', function() {
-            window.scrollTo({ 
-                top: 0, 
-                behavior: 'smooth' 
-            });
-        });
-
-        // Add hover effects to cards
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Add click animation to country items
-        document.querySelectorAll('.country-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.animation = 'none';
-                setTimeout(() => {
-                    this.style.animation = 'pulse 0.6s ease-in-out';
-                }, 10);
-            });
-        });
-
-        // Add typing effect to the main title
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.textContent = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
+        // Estado do jogo
+        let gameState = {
+            level: 1,
+            stars: 0,
+            coins: 0,
+            hints: 3,
+            characterX: 50,
+            characterY: 30,
+            velocityY: 0,
+            isJumping: false,
+            solvedObstacles: [],
+            collectedStars: [],
+            collectedCoins: [],
+            currentQuestion: null
+        };
+        
+        // Elementos
+        const character = document.getElementById('character');
+        const challengeModal = document.getElementById('challengeModal');
+        const message = document.getElementById('message');
+        const hintBtn = document.getElementById('hintBtn');
+        const hintText = document.getElementById('hintText');
+        
+        // Atualizar posição do personagem
+        function updateCharacterPosition() {
+            character.style.left = gameState.characterX + 'px';
+            character.style.bottom = gameState.characterY + 'px';
         }
-
-        // Initialize typing effect when page loads
-        window.addEventListener('load', function() {
-            const title = document.querySelector('h1');
-            const originalText = title.textContent;
+        
+        // Atualizar HUD
+        function updateHUD() {
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('stars').textContent = gameState.stars;
+            document.getElementById('coins').textContent = gameState.coins;
+            document.getElementById('hints').textContent = gameState.hints;
+        }
+        
+        // Mostrar mensagem
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = 'message show ' + type;
             setTimeout(() => {
-                typeWriter(title, originalText, 150);
-            }, 1000);
-        });
-
-        // Add parallax effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrolled = window.pageYOffset;
-            const parallax = scrolled * 0.5;
-            header.style.transform = `translateY(${parallax}px)`;
-        });
-
-        // Quiz functionality
-        let currentQuestion = 1;
-        let score = 0;
-        let quizCompleted = false;
-
-        function updateProgress() {
-            const progressFill = document.getElementById('progress-fill');
-            const progressText = document.getElementById('progress-text');
-            const percentage = (currentQuestion - 1) / 5 * 100;
-            
-            progressFill.style.width = percentage + '%';
-            progressText.textContent = `Pergunta ${currentQuestion} de 5`;
-        }
-
-        function showQuestion(questionNumber) {
-            // Hide all questions
-            document.querySelectorAll('.quiz-question').forEach(q => {
-                q.style.display = 'none';
-            });
-            
-            // Show current question
-            const questionElement = document.getElementById(`question-${questionNumber}`);
-            if (questionElement) {
-                questionElement.style.display = 'block';
-            }
-            
-            updateProgress();
-        }
-
-        function handleAnswer(button, isCorrect) {
-            // Disable all options
-            const options = button.parentElement.querySelectorAll('.quiz-option');
-            options.forEach(opt => opt.disabled = true);
-            
-            // Show correct/incorrect feedback
-            if (isCorrect) {
-                button.classList.add('correct');
-                score++;
-            } else {
-                button.classList.add('incorrect');
-                // Show correct answer
-                options.forEach(opt => {
-                    if (opt.dataset.correct === 'true') {
-                        opt.classList.add('correct');
-                    }
-                });
-            }
-            
-            // Move to next question after delay
-            setTimeout(() => {
-                if (currentQuestion < 5) {
-                    currentQuestion++;
-                    showQuestion(currentQuestion);
-                } else {
-                    showResults();
-                }
+                message.classList.remove('show');
             }, 2000);
         }
-
-        function showResults() {
-            document.querySelectorAll('.quiz-question').forEach(q => {
-                q.style.display = 'none';
+        
+        // Gravidade e pulo
+        let gravity;
+        function applyGravity() {
+            if (gameState.characterY > 30 || gameState.velocityY > 0) {
+                gameState.velocityY -= 0.8;
+                gameState.characterY += gameState.velocityY;
+                
+                if (gameState.characterY <= 30) {
+                    gameState.characterY = 30;
+                    gameState.velocityY = 0;
+                    gameState.isJumping = false;
+                }
+                
+                updateCharacterPosition();
+            }
+        }
+        
+        // Colisão com plataformas
+        function checkPlatformCollision() {
+            const platforms = [
+                {left: 200, right: 350, bottom: 100},
+                {left: 400, right: 550, bottom: 180},
+                {left: 630, right: 750, bottom: 140}
+            ];
+            
+            platforms.forEach(platform => {
+                if (gameState.characterX + 40 > platform.left && 
+                    gameState.characterX < platform.right &&
+                    gameState.characterY <= platform.bottom + 20 &&
+                    gameState.characterY >= platform.bottom - 10 &&
+                    gameState.velocityY <= 0) {
+                    gameState.characterY = platform.bottom + 20;
+                    gameState.velocityY = 0;
+                    gameState.isJumping = false;
+                }
+            });
+        }
+        
+        // Verificar coleta de itens
+        function checkCollectibles() {
+            const stars = document.querySelectorAll('.collectible.star');
+            stars.forEach((star, index) => {
+                if (gameState.collectedStars.includes(index)) return;
+                
+                const rect = star.getBoundingClientRect();
+                const charRect = character.getBoundingClientRect();
+                
+                if (!(charRect.right < rect.left || 
+                      charRect.left > rect.right || 
+                      charRect.bottom < rect.top || 
+                      charRect.top > rect.bottom)) {
+                    star.style.display = 'none';
+                    gameState.stars++;
+                    gameState.collectedStars.push(index);
+                    updateHUD();
+                    showMessage('★ Estrela coletada!', 'success');
+                }
             });
             
-            const resultDiv = document.getElementById('quiz-result');
-            const scoreDisplay = document.getElementById('score-display');
-            const resultMessage = document.getElementById('result-message');
-            const progressFill = document.getElementById('progress-fill');
-            const progressText = document.getElementById('progress-text');
+            const coins = document.querySelectorAll('.collectible.coin');
+            coins.forEach((coin, index) => {
+                if (gameState.collectedCoins.includes(index)) return;
+                
+                const rect = coin.getBoundingClientRect();
+                const charRect = character.getBoundingClientRect();
+                
+                if (!(charRect.right < rect.left || 
+                      charRect.left > rect.right || 
+                      charRect.bottom < rect.top || 
+                      charRect.top > rect.bottom)) {
+                    coin.style.display = 'none';
+                    gameState.coins += 10;
+                    gameState.collectedCoins.push(index);
+                    updateHUD();
+                    showMessage('🪙 +10 moedas!', 'success');
+                }
+            });
+        }
+        
+        // Verificar chegada ao objetivo
+        function checkGoal() {
+            const goal = document.getElementById('goal');
+            const rect = goal.getBoundingClientRect();
+            const charRect = character.getBoundingClientRect();
             
-            resultDiv.style.display = 'block';
-            scoreDisplay.textContent = `${score} / 5`;
-            progressFill.style.width = '100%';
-            progressText.textContent = 'Quiz Completo!';
+            if (!(charRect.right < rect.left || 
+                  charRect.left > rect.right || 
+                  charRect.bottom < rect.top || 
+                  charRect.top > rect.bottom)) {
+                
+                if (gameState.stars >= 2) {
+                    showMessage('🎉 Nível Completo! Parabéns!', 'success');
+                    setTimeout(() => {
+                        alert('Parabéns! Você completou o nível!\n\n' +
+                              'Estrelas: ' + gameState.stars + '/3\n' +
+                              'Moedas: ' + gameState.coins + '\n\n' +
+                              'No jogo completo, você avançaria para o próximo nível!');
+                    }, 500);
+                } else {
+                    showMessage('Colete pelo menos 2 estrelas primeiro!', 'error');
+                }
+            }
+        }
+        
+        // Controles do teclado
+        const keys = {};
+        document.addEventListener('keydown', (e) => {
+            keys[e.key] = true;
             
-            // Set message based on score
-            if (score === 5) {
-                resultMessage.textContent = '🌟 Excelente! Você domina o assunto!';
-            } else if (score >= 3) {
-                resultMessage.textContent = '👏 Muito bom! Você tem um bom conhecimento!';
-            } else {
-                resultMessage.textContent = '📚 Continue estudando! Você pode melhorar!';
+            if ((e.key === ' ' || e.key === 'ArrowUp') && !gameState.isJumping) {
+                gameState.velocityY = 15;
+                gameState.isJumping = true;
+            }
+        });
+        
+        document.addEventListener('keyup', (e) => {
+            keys[e.key] = false;
+        });
+        
+        // Loop do jogo
+        function gameLoop() {
+            // Movimento horizontal
+            if (keys['ArrowLeft']) {
+                gameState.characterX = Math.max(0, gameState.characterX - 3);
+            }
+            if (keys['ArrowRight']) {
+                gameState.characterX = Math.min(850, gameState.characterX + 3);
             }
             
-            quizCompleted = true;
+            applyGravity();
+            checkPlatformCollision();
+            checkCollectibles();
+            checkGoal();
+            updateCharacterPosition();
         }
-
-        function restartQuiz() {
-            currentQuestion = 1;
-            score = 0;
-            quizCompleted = false;
+        
+        setInterval(gameLoop, 1000/60);
+        
+        // Mostrar desafio
+        function showChallenge(obstacleId) {
+            const availableQuestions = questions.filter((_, index) => 
+                !gameState.solvedObstacles.includes(index)
+            );
             
-            // Reset all options
-            document.querySelectorAll('.quiz-option').forEach(opt => {
-                opt.disabled = false;
-                opt.classList.remove('correct', 'incorrect');
+            if (availableQuestions.length === 0) {
+                showMessage('Você já resolveu todos os desafios!', 'success');
+                return;
+            }
+            
+            const questionData = availableQuestions[Math.floor(Math.random() * availableQuestions.length)];
+            gameState.currentQuestion = {
+                ...questionData,
+                obstacleId: obstacleId,
+                originalIndex: questions.indexOf(questionData)
+            };
+            
+            document.getElementById('question').textContent = questionData.question;
+            hintText.classList.remove('show');
+            hintText.textContent = '';
+            hintBtn.disabled = gameState.hints === 0;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            questionData.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(btn);
             });
             
-            // Hide result and show first question
-            document.getElementById('quiz-result').style.display = 'none';
-            showQuestion(1);
+            challengeModal.classList.add('active');
         }
-
-        // Add event listeners for quiz options
-        document.addEventListener('DOMContentLoaded', function() {
-            // Quiz option listeners
-            document.querySelectorAll('.quiz-option').forEach(button => {
-                button.addEventListener('click', function() {
-                    const isCorrect = this.dataset.correct === 'true';
-                    handleAnswer(this, isCorrect);
-                });
-            });
+        
+        // Verificar resposta
+        function checkAnswer(selectedIndex) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.disabled = true);
             
-            // Restart quiz listener
-            document.getElementById('restart-quiz').addEventListener('click', restartQuiz);
-            
-            // Initialize quiz
-            showQuestion(1);
+            if (selectedIndex === gameState.currentQuestion.correct) {
+                options[selectedIndex].classList.add('correct');
+                setTimeout(() => {
+                    challengeModal.classList.remove('active');
+                    showMessage('✅ Correto! Obstáculo superado!', 'success');
+                    
+                    const obstacle = document.getElementById(gameState.currentQuestion.obstacleId);
+                    obstacle.style.display = 'none';
+                    gameState.solvedObstacles.push(gameState.currentQuestion.originalIndex);
+                    gameState.coins += 20;
+                    updateHUD();
+                }, 1000);
+            } else {
+                options[selectedIndex].classList.add('wrong');
+                options[gameState.currentQuestion.correct].classList.add('correct');
+                setTimeout(() => {
+                    challengeModal.classList.remove('active');
+                    showMessage('❌ Ops! Tente novamente!', 'error');
+                }, 1500);
+            }
+        }
+        
+        // Sistema de dicas
+        hintBtn.addEventListener('click', () => {
+            if (gameState.hints > 0) {
+                gameState.hints--;
+                updateHUD();
+                hintText.textContent = gameState.currentQuestion.hint;
+                hintText.classList.add('show');
+                hintBtn.disabled = true;
+                showMessage('💡 Dica usada!', 'success');
+            }
         });
+        
+        // Cliques nos obstáculos
+        document.getElementById('obstacle1').addEventListener('click', () => showChallenge('obstacle1'));
+        document.getElementById('obstacle2').addEventListener('click', () => showChallenge('obstacle2'));
+        
+        // Inicializar
+        updateCharacterPosition();
+        updateHUD();
+        
+        // Mensagem inicial
+        setTimeout(() => {
+            showMessage('Use ← → para mover e ESPAÇO para pular!', 'success');
+        }, 500);
     </script>
 </body>
 </html>
